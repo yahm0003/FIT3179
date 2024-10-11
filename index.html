@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        /* Styling for the center heading */
+        .center {
+            text-align: center;
+            background-color: #73c39d;
+            padding: 10px;
+            border: none;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Set body background and margin */
+        body {
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Flex container for chart and text side-by-side */
+        .chart-container {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 1200px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        /* Styling for the charts */
+        .chart {
+            width: 60%;
+            margin-right: 20px;
+        }
+
+        /* Styling for the text blocks */
+        .text-block {
+            width: 35%;
+            padding: 10px;
+            background-color: #e8f5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            color: #333;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .text-block h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #2e7d32;
+        }
+
+        .text-block p {
+            line-height: 1.6;
+        }
+
+        /* Responsive layout for smaller screens */
+        @media (max-width: 768px) {
+            .chart-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .chart, .text-block {
+                width: 100%;
+                margin: 10px 0;
+            }
+        }
+    </style>
+    
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+    <script src="vega_lite_vis.js"></script>
+    <title>Healthcare Expenditure in Australia</title>
+</head>
+<body>
+
+<h1 class="center">Healthcare Expenditure in Australia</h1>
+
+<!-- First chart and text block -->
+<div class="chart-container">
+    <div class="chart" id="map"></div>
+    <div class="text-block">
+        <h2>Geographical Distribution</h2>
+        <p>This map highlights the healthcare expenditure across different states in Australia. It provides a visual representation of how healthcare funds are distributed geographically.</p>
+        <p>The map is color-coded to show varying levels of expenditure, with a detailed breakdown by region.</p>
+    </div>
+</div>
+
+<!-- Second chart and text block -->
+<div class="chart-container">
+    <div class="chart" id="line"></div>
+    <div class="text-block">
+        <h2>Expenditure Over Time</h2>
+        <p>The line chart represents the total healthcare expenditure over the years, segmented by different areas of expenditure. This helps to track trends in healthcare funding and monitor changes over time.</p>
+        <p>Use the filter to focus on specific areas of healthcare expenditure, such as administration or aids and appliances.</p>
+    </div>
+</div>
+
+<!-- Third chart and text block -->
+<div class="chart-container">
+    <div class="chart" id="bar"></div>
+    <div class="text-block">
+        <h2>Breakdown by Funding Source</h2>
+        <p>The bar chart illustrates the distribution of healthcare funds based on the sources of funding, such as government contributions, private insurance, and other non-government sources.</p>
+        <p>This breakdown provides insights into how different sectors contribute to overall healthcare spending in Australia.</p>
+    </div>
+</div>
+
+<!-- Fourth chart and text block -->
+<div class="chart-container">
+    <div class="chart" id="donut"></div>
+    <div class="text-block">
+        <h2>Funding Allocation</h2>
+        <p>The donut chart shows how healthcare funds are allocated across different areas of expenditure. This visualization helps identify which areas receive the most financial support, such as hospital services, primary care, or public health programs.</p>
+    </div>
+</div>
+
+
+</body>
+</html>

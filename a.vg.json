@@ -1,0 +1,45 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "Multi-line chart displaying the sum of health expenditure over time by area of expenditure.",
+    "title": "Total Health Expenditure Over Time by Area of Expenditure",
+    "data": {
+      "url": "healthexpenditurebyareaandsource.csv",
+      "format": {"type": "csv"}
+    },
+    "transform": [
+      {
+        "aggregate": [
+          {
+            "op": "sum",
+            "field": "real_expenditure_millions",
+            "as": "total_expenditure"
+          }
+        ],
+        "groupby": ["financial_year", "area_of_expenditure"]
+      }
+    ],
+    "mark": "line",
+    "encoding": {
+      "x": {
+        "field": "financial_year",
+        "type": "temporal",
+        "title": "Financial Year"
+      },
+      "y": {
+        "field": "total_expenditure",
+        "type": "quantitative",
+        "title": "Total Expenditure (Millions $)"
+      },
+      "color": {
+        "field": "area_of_expenditure",
+        "type": "nominal",
+        "title": "Area of Expenditure"
+      },
+      "tooltip": [
+        {"field": "financial_year", "type": "temporal", "title": "Year"},
+        {"field": "total_expenditure", "type": "quantitative", "title": "Total Expenditure (Millions $)"},
+        {"field": "area_of_expenditure", "type": "nominal", "title": "Area of Expenditure"}
+      ]
+    }
+  }
+  

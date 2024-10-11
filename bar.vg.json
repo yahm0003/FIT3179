@@ -1,0 +1,42 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Source of Funding",
+    "data": { 
+      "url": "healthexpenditurebyareaandsource.csv" 
+    },
+    "transform": [
+      {
+        "filter": "datum.detailed_source_of_funding !== null && datum.detailed_source_of_funding !== ''"
+      }
+    ],
+    "height": {"step": 17},
+    "encoding": {
+      "y": {
+        "field": "state",
+        "type": "nominal",
+        "title": ""
+      }
+    },
+    "layer": [
+      {
+        "mark": "bar",
+        "encoding": {
+          "x": {
+            "aggregate": "sum",
+            "field": "real_expenditure_millions",
+            "title": "Expenditure (%)",
+            "stack": "normalize"
+          },
+          "color": {
+            "field": "detailed_source_of_funding",
+            "type": "nominal",
+            "title": "Detailed Source of Funding",
+            "scale": {
+              "range": ["#00008B", "#66CDAA", "#D3D3D3", "#FFA500", "#006400"]
+            }
+          }
+        }
+      }
+    ]
+  }
+  
