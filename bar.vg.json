@@ -1,0 +1,93 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "",
+  "width": 400,
+  "data": { 
+    "url": "healthexpenditurebyareaandsource.csv" 
+  },
+  "transform": [
+    {
+      "filter": "datum.detailed_source_of_funding !== null && datum.detailed_source_of_funding !== ''"
+    },
+    {
+      "aggregate": [
+        {
+          "op": "sum",
+          "field": "real_expenditure_millions",
+          "as": "total_expenditure"
+        }
+      ],
+      "groupby": ["state", "detailed_source_of_funding"]
+    },
+    {
+      "joinaggregate": [
+        {
+          "op": "sum",
+          "field": "total_expenditure",
+          "as": "total_state_expenditure"
+        }
+      ],
+      "groupby": ["state"]
+    },
+    {
+      "calculate": "datum.total_expenditure / datum.total_state_expenditure * 100",
+      "as": "percentage"
+    }
+  ],
+  "height": 300,
+  "encoding": {
+    "y": {
+      "field": "state",
+      "type": "nominal",
+      "title": ""
+    }
+  },
+  "layer": [
+    {
+      "mark": "bar",
+      "encoding": {
+        "x": {
+          "aggregate": "sum",
+          "field": "total_expenditure",
+          "title": "Expenditure (%)",
+          "stack": "normalize",
+          "axis": {
+            "grid": false,
+            "ticks": false
+          }
+        },
+        "color": {
+          "field": "detailed_source_of_funding",
+          "type": "nominal",
+          "title": "Detailed Source of Funding",
+          "scale": {
+            "range": ["#00008B", "#66CDAA", "#D3D3D3", "#FFA500", "#006400"]
+          }
+        },
+        "tooltip": [
+          {
+            "field": "state",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
+            "field": "total_state_expenditure",
+            "type": "quantitative",
+            "title": "Total Expenditure for State (Millions)"
+          },
+          {
+            "field": "total_expenditure",
+            "type": "quantitative",
+            "title": "Expenditure by Funding Source (Millions)"
+          },
+          {
+            "field": "percentage",
+            "type": "quantitative",
+            "title": "Percentage (%)",
+            "format": ".2f"
+          }
+        ]
+      }
+    }
+  ]
+}

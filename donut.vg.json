@@ -1,0 +1,72 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "",
+    "description": "Donut chart showing Government vs Non-government funding for all years.",
+    "width": 500,
+    "height": 300,
+    "data": {
+      "url": "healthexpenditurebyareaandsource.csv"
+    },
+    "transform": [
+      {
+        "filter": "datum.broad_source_of_funding !== null && datum.broad_source_of_funding !== ''"
+      },
+      {
+        "aggregate": [
+          {
+            "op": "sum",
+            "field": "real_expenditure_millions",
+            "as": "total_expenditure"
+          }
+        ],
+        "groupby": ["broad_source_of_funding"]
+      },
+      {
+        "joinaggregate": [
+          {
+            "op": "sum",
+            "field": "total_expenditure",
+            "as": "total_expenditure_sum"
+          }
+        ],
+        "groupby": []
+      },
+      {
+        "calculate": "datum.total_expenditure / datum.total_expenditure_sum * 100",
+        "as": "percentage"
+      }
+    ],
+    "mark": {
+      "type": "arc",
+      "innerRadius": 50
+    },
+    "encoding": {
+      "theta": {
+        "field": "total_expenditure",
+        "type": "quantitative",
+        "title": "Total Expenditure (Millions)"
+      },
+      "color": {
+        "field": "broad_source_of_funding",
+        "type": "nominal",
+        "title": "Funding Source",
+        "scale": {
+          "range": ["#00008B", "#90D5FF"]
+        }
+      },
+      "tooltip": [
+        {
+          "field": "broad_source_of_funding",
+          "type": "nominal",
+          "title": "Funding Source"
+        },
+        {
+          "field": "percentage",
+          "type": "quantitative",
+          "format": ".1f",
+          "title": "Percentage (%)"
+        }
+      ]
+    }
+  }
+  

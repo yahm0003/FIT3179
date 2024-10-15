@@ -1,0 +1,160 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "Multi-line chart displaying the sum of health expenditure over time by area of expenditure.",
+    "title": "",
+    "vconcat": [
+      {
+        "height": 250,
+        "width": 450,
+        "data": {
+          "url": "healthexpenditurebyareaandsource.csv",
+          "format": {
+            "type": "csv"
+          }
+        },
+        "transform": [
+          {
+            "filter": "datum.broad_source_of_funding !== null && datum.broad_source_of_funding !== ''"
+          },
+          {
+            "aggregate": [
+              {
+                "op": "sum",
+                "field": "real_expenditure_millions",
+                "as": "total_expenditure"
+              }
+            ],
+            "groupby": [
+              "financial_year",
+              "area_of_expenditure"
+            ]
+          }
+        ],
+        "mark": "area",
+        "encoding": {
+          "x": {
+            "field": "financial_year",
+            "type": "temporal",
+            "scale": {"domain": {"param": "brush"}},
+            "title": ""
+          },
+          "y": {
+            "field": "total_expenditure",
+            "type": "quantitative",
+            "title": "Total Expenditure (Millions $)"
+          },
+          "color": {
+            "field": "area_of_expenditure",
+            "type": "nominal",
+            "title": "Area of Expenditure"
+          },
+          "opacity": {
+            "condition": {
+              "param": "highlight",
+              "value": 1
+            },
+            "value": 0.2
+          },
+          "tooltip": [
+            {
+              "field": "financial_year",
+              "type": "temporal",
+              "title": "Year"
+            },
+            {
+              "field": "total_expenditure",
+              "type": "quantitative",
+              "title": "Total Expenditure (Millions $)"
+            },
+            {
+              "field": "area_of_expenditure",
+              "type": "nominal",
+              "title": "Area of Expenditure"
+            }
+          ]
+        },
+        "params": [
+          {
+            "name": "highlight",
+            "select": {
+              "type": "point",
+              "fields": ["area_of_expenditure"]
+            },
+            "bind": "legend"
+          }
+        ]
+      },
+      {
+        "height": 100,
+        "width": 450,
+        "data": {
+          "url": "healthexpenditurebyareaandsource.csv",
+          "format": {
+            "type": "csv"
+          }
+        },
+        "transform": [
+          {
+            "filter": "datum.broad_source_of_funding !== null && datum.broad_source_of_funding !== ''"
+          },
+          {
+            "aggregate": [
+              {
+                "op": "sum",
+                "field": "real_expenditure_millions",
+                "as": "total_expenditure"
+              }
+            ],
+            "groupby": [
+              "financial_year",
+              "area_of_expenditure"
+            ]
+          }
+        ],
+        "mark": "area",
+        "params": [
+        {"name": "brush", "select": {"type": "interval",
+        "encodings": ["x"]}}
+        ],
+        "encoding": {
+          "x": {
+            "field": "financial_year",
+            "type": "temporal",
+            "title": ""
+          },
+          "y": {
+            "field": "total_expenditure",
+            "type": "quantitative",
+            "title": "Total Expenditure (Millions $)",
+            "axis": {
+              "tickCount": 3,
+              "grid": false
+            }
+          },
+          "color": {
+            "field": "area_of_expenditure",
+            "type": "nominal",
+            "title": "Area of Expenditure"
+          },
+          "tooltip": [
+            {
+              "field": "financial_year",
+              "type": "temporal",
+              "title": "Year"
+            },
+            {
+              "field": "total_expenditure",
+              "type": "quantitative",
+              "title": "Total Expenditure (Millions $)"
+            },
+            {
+              "field": "area_of_expenditure",
+              "type": "nominal",
+              "title": "Area of Expenditure"
+            }
+          ]
+        }
+      }
+    ]
+  }
+  

@@ -1,0 +1,87 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "",
+  "width": 520,
+  "height": 400,
+  "projection": {
+    "type": "equirectangular"
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "ne_1.json",
+        "format": {
+          "type": "topojson",
+          "feature": "ne_110m_graticules_5"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "stroke": "lightgray",
+        "strokeWidth": 0.5
+      }
+    },
+    {
+      "data": {
+        "url": "ne_1.json",
+        "format": {
+          "type": "topojson",
+          "feature": "ne_10m_admin_1_states_provinces"
+        }
+      },
+      "transform": [
+        {
+          "lookup": "properties.name",
+          "from": {
+            "data": {
+              "url": "healthexpenditurebyareaandsource.csv"
+            },
+            "key": "state",
+            "fields": ["real_expenditure_millions"]
+          }
+        },
+        {
+          "calculate": "datum.real_expenditure_millions || 0",
+          "as": "Total_Expenditure"
+        },
+        {
+          "calculate": "datum.Total_Expenditure < 10 ? 'Low (0-9)' : datum.Total_Expenditure < 30 ? 'Moderate (10-29)' : datum.Total_Expenditure < 60 ? 'High (30-59)' : 'Very High (60+)'",
+          "as": "Expenditure_Class"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "stroke": "white",
+        "strokeWidth": 0.7
+      },
+      "encoding": {
+        "color": {
+          "field": "Expenditure_Class",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Low (0-9)", "Moderate (10-29)", "High (30-59)", "Very High (60+)"],
+            "range": ["#bbdefb", "#64b5f6", "#1e88e5", "#0d47a1"]
+          },
+          "title": "Expenditure Classes (Millions $)"
+        },
+        "tooltip": [
+          {
+            "field": "properties.name",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
+            "field": "Total_Expenditure",
+            "type": "quantitative",
+            "title": "Total Expenditure (Millions $)"
+          },
+          {
+            "field": "Expenditure_Class",
+            "type": "nominal",
+            "title": "Expenditure Class"
+          }
+        ]
+      }
+    }
+  ]
+}

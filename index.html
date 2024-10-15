@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        .center {
+            text-align: center;
+            padding: 15px 20px;
+            border: none;
+            font-family: Arial, sans-serif;
+            font-size: 28px;
+            font-weight: bold;
+            color: #ffffff;
+            margin: 20px 0;
+            background-color: #538fcb;
+            border-radius: 8px;
+            box-shadow: none;
+            width: 71.5%;
+            margin: 20px auto;
+        }
+
+        body {
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .chart-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 1200px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .chart {
+            width: 60%;
+            margin-right: 20px;
+        }
+
+        .text-block {
+            width: 35%;
+            padding: 15px;
+            background-color: #e3f2fd;
+            border-radius: 8px;
+            font-size: 16px;
+            color: #333;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .text-block h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #1976d2;
+            text-align: center;
+        }
+
+        .text-block p {
+            line-height: 1.6;
+        }
+
+        .metadata {
+            padding-left: 20px;
+            padding-bottom: 20px;
+            font-size: 16px;
+            color: #333;
+            font-family: Arial, sans-serif;
+        }
+
+        @media (max-width: 768px) {
+            .chart-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .chart,
+            .text-block {
+                width: 100%;
+                margin: 10px 0;
+            }
+        }
+    </style>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+    <script src="vega_lite_vis.js"></script>
+    <title>Healthcare Expenditure in Australia</title>
+</head>
+
+<body>
+
+    <h1 class="center">Healthcare Expenditure in Australia</h1>
+
+    <div class="chart-container">
+        <div class="chart" id="map"></div>
+        <div class="text-block">
+            <h2>Geographical Distribution of Expenditure</h2>
+            <p>In Australia, New South Wales (NSW) and Victoria (VIC) have the highest healthcare expenditures,
+                primarily due to their larger populations and urbanized regions that necessitate extensive healthcare
+                services. Conversely, the Australian Capital Territory (ACT), Northern Territory (NT), and Tasmania
+                (TAS) exhibit the lowest healthcare expenditures, attributed to their smaller populations and, in the
+                case of NT and TAS, geographic challenges that affect service access. This disparity underscores the
+                need for tailored healthcare strategies to address the unique demands of these less populous regions.
+            </p>
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <div class="chart" id="line"></div>
+        <div class="text-block">
+            <h2>Expenditures Over Time</h2>
+            <p>Medical services and public hospitals have consistently been the largest areas of healthcare expenditure
+                in Australia over the years. This trend highlights their critical role in delivering essential
+                healthcare services to the population. As demand for medical care and hospital facilities continues to
+                grow, particularly in urban centers, funding for these sectors remains a priority. This sustained
+                investment underscores the importance of accessible medical services and robust hospital systems in
+                ensuring the health and well-being of Australians.</p>
+            <p><b>Note: Use the filter to focus on specific areas of healthcare expenditure. Also drag sideways along the bottom chart
+                to view data in more detail.</b>
+            </p>
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <div class="chart" id="bar"></div>
+        <div class="text-block">
+            <h2>Breakdown by Funding Source</h2>
+            <p>The majority of healthcare funding in Australia comes from the Australian Government, highlighting its
+                pivotal role in supporting the healthcare system and ensuring access to essential services for the
+                population. Following closely is the contribution from state and local governments, which supplement
+                federal funding and address specific regional healthcare needs. Together, these sources of funding
+                reflect a collaborative effort to maintain and enhance the quality of healthcare services across the
+                country, ensuring that Australians receive the care they need.</p>
+            <p>This breakdown provides insights into how different sectors contribute to overall healthcare spending in
+                Australia.</p>
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <div class="chart" id="donut"></div>
+        <div class="text-block">
+            <h2>Government Funding Allocation</h2>
+            <p>Approximately two-thirds of healthcare funding in Australia comes from government contributions,
+                highlighting the critical role of public funding in ensuring access to essential services. In contrast,
+                one-third of funding is sourced from non-government sources, including private health insurance and
+                out-of-pocket expenses. This balance underscores the mixed nature of Australia’s healthcare financing,
+                allowing for a diverse range of services to meet the needs of the population.</p>
+        </div>
+    </div>
+
+    <div class="metadata"><br>A visualisation by <b>Yameen Ahmed</b><br>Date: 15/10/2024 <br>Data Source: <a href="https://data.gov.au/dataset/ds-dga-f84b9baf-c1c1-437c-8c1e-654b2829848c/details?q=health">data.gov.au</a></div>
+
+</body>
+
+</html>
